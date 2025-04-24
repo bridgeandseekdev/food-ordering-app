@@ -1,7 +1,7 @@
-import { Order } from '~/types';
+import { MenuItem, Order, PaymentMethod, Restaurant, User } from '~/types';
 
 // Users data
-export const users = [
+export const users: User[] = [
   {
     id: '1',
     name: 'Nick Fury',
@@ -41,7 +41,7 @@ export const users = [
 ];
 
 // Restaurants data
-export const restaurants = [
+export const restaurants: Restaurant[] = [
   // Indian Restaurants
   {
     id: '1',
@@ -96,7 +96,7 @@ export const restaurants = [
 ];
 
 // Menu items data
-export const menuItems = [
+export const menuItems: MenuItem[] = [
   // Spice Garden (Indian Restaurant) - ID 1
   {
     id: '101',
@@ -255,7 +255,7 @@ export const menuItems = [
 ];
 
 // Payment methods data
-export const paymentMethods = [
+export const paymentMethods: PaymentMethod[] = [
   {
     id: 'pm1',
     userId: '1', // Nick Fury (Admin)

@@ -1,5 +1,5 @@
 export type UserRole = 'Admin' | 'Manager' | 'Member';
-export type Region = 'India' | 'America';
+export type Region = 'India' | 'America' | null;
 
 export interface User {
   id: string;
