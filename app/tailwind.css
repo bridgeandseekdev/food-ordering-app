@@ -2,11 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+@layer base {
+  :root {
+    /* Light mode */
+    --background: 42 100% 98%;
+    --foreground: 330 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: var(--foreground);
+    --primary: 10 60% 60%;
+    --on-primary: 0 0% 100%;
+    --secondary: 45 60% 65%;
+    --on-secondary: var(--foreground);
+    --accent: 195 40% 75%;
+    --on-accent: 210 30% 15%;
+    --muted: 42 100% 94%;
+    --on-muted: 330 30% 35%;
+    --highlight: 280 40% 85%;
+    --on-highlight: 280 60% 25%;
+    --destructive: 0 60% 60%;
+    --on-destructive: 0 0% 100%;
+    --success: 140 50% 55%;
+    --on-success: 140 100% 95%;
+    --info: 210 40% 75%;
+    --on-info: 210 30% 15%;
+    --border: 42 60% 85%;
+    --input: var(--border);
+    --ring: var(--primary);
+    --radius: 0.5rem;
+  }
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  .dark {
+    /* Dark mode */
+    --background: 330 20% 12%;
+    --foreground: 42 30% 85%;
+    --card: 330 20% 15%;
+    --card-foreground: var(--foreground);
+    /* primaries stay same H/S/L to preserve brand, only context shifts */
+    --primary: 10 60% 60%;
+    --on-primary: 0 0% 100%;
+    --secondary: 45 60% 65%;
+    --on-secondary: var(--foreground);
+    --accent: 195 40% 75%;
+    --on-accent: 210 100% 95%;
+    --muted: 330 20% 20%;
+    --on-muted: 330 20% 60%;
+    --highlight: 280 40% 30%;
+    --on-highlight: 280 40% 80%;
+    --destructive: 0 60% 60%;
+    --on-destructive: 0 0% 100%;
+    --success: 140 50% 55%;
+    --on-success: 140 100% 95%;
+    --info: 210 40% 75%;
+    --on-info: 210 100% 95%;
+    --border: 330 20% 25%;
+    --input: var(--border);
+    --ring: var(--primary);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
