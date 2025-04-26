@@ -35,8 +35,10 @@ export default function UserSelectionPage() {
             {users.map((user) => {
               const isSelected = selectedUserId === user.id;
               return (
-                <div
+                <label
+                  htmlFor={`user-${user.id}`}
                   key={user.id}
+                  aria-label={`Select user ${user.name}`}
                   className={`
                     flex items-center p-4 rounded-lg border transition-all cursor-pointer
                     ${
@@ -51,22 +53,20 @@ export default function UserSelectionPage() {
                     id={`user-${user.id}`}
                     name="user"
                     value={user.id}
+                    aria-labelledby={`user-name-${user.id}`}
                     onChange={() => setSelectedUserId(user.id)}
                     checked={isSelected}
                     className="mr-4 h-4 w-4 accent-primary"
                   />
 
-                  <label
-                    htmlFor={`user-${user.id}`}
-                    className="flex-1 cursor-pointer"
-                  >
+                  <div className="flex-1">
                     <div className="font-semibold">{user.name}</div>
                     <div className="font-extralight text-sm text-on-muted">
                       {user.role}{' '}
                       {user.region ? `- ${user.region}` : '(Global Access)'}
                     </div>
-                  </label>
-                </div>
+                  </div>
+                </label>
               );
             })}
           </div>
