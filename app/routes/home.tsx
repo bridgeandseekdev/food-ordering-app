@@ -29,7 +29,7 @@ export default function HomeLayout() {
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <span className="font-medium">{currentUser.name}</span>
-              <span className="text-sm px-4 py-1 bg-accent rounded-full">
+              <span className="text-sm px-4 py-1 bg-accent rounded-full text-on-accent">
                 {currentUser.role}
                 {currentUser.region && ` - ${currentUser.region}`}
               </span>

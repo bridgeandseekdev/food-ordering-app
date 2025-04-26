@@ -43,7 +43,7 @@
     --secondary: 45 60% 65%;
     --on-secondary: var(--foreground);
     --accent: 195 40% 75%;
-    --on-accent: 210 100% 95%;
+    --on-accent: var(--background);
     --muted: 330 20% 20%;
     --on-muted: 330 20% 60%;
     --highlight: 280 40% 30%;
@@ -53,7 +53,7 @@
     --success: 140 50% 55%;
     --on-success: 140 100% 95%;
     --info: 210 40% 75%;
-    --on-info: 210 100% 95%;
+    --on-info: var(--background);
     --border: 330 20% 25%;
     --input: var(--border);
     --ring: var(--primary);
