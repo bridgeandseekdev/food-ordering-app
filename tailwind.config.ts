@@ -50,11 +50,26 @@ export default {
           foreground: 'hsl(var(--muted-foreground))',
         },
         'on-muted': 'hsl(var(--on-muted))',
+        highlight: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        'on-highlight': 'hsl(var(--on-muted))',
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
         'on-accent': 'hsl(var(--on-accent))',
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        'on-success': 'hsl(var(--on-success))',
+        info: {
+          DEFAULT: 'hsl(var(--info))',
+          foreground: 'hsl(var(--info-foreground))',
+        },
+        'on-info': 'hsl(var(--on-info))',
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',

@@ -11,7 +11,7 @@ export default function UserSelectionPage() {
   const handleUserSelect = () => {
     if (selectedUserId) {
       setUser(selectedUserId);
-      navigate('/app/restaurants');
+      navigate('/home/restaurants');
     }
   };
 
