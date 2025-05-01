@@ -22,7 +22,7 @@ export default function UserSelectionPage() {
           Food Ordering App
         </h1>
 
-        <h2 className="text-xl text-center text-on-secondary">Select User</h2>
+        <h2 className="text-xl text-center text-foreground">Select User</h2>
 
         <Form
           className="space-y-6"
@@ -60,7 +60,9 @@ export default function UserSelectionPage() {
                   />
 
                   <div className="flex-1">
-                    <div className="font-semibold">{user.name}</div>
+                    <div className="font-semibold text-foreground">
+                      {user.name}
+                    </div>
                     <div className="font-extralight text-sm text-on-muted">
                       {user.role}{' '}
                       {user.region ? `- ${user.region}` : '(Global Access)'}
