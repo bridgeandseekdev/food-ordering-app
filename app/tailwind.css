@@ -41,7 +41,7 @@
     --primary: 10 60% 60%;
     --on-primary: 0 0% 100%;
     --secondary: 45 60% 65%;
-    --on-secondary: var(--foreground);
+    --on-secondary: var(--background);
     --accent: 195 40% 75%;
     --on-accent: var(--background);
     --muted: 330 20% 20%;

@@ -26,6 +26,12 @@ export interface MenuItem {
   imageUrl: string;
 }
 
+export interface CartItem {
+  menuItemId: string;
+  quantity: number;
+  menuItem: MenuItem;
+}
+
 export interface PaymentMethod {
   id: string;
   userId: string;
@@ -34,23 +40,21 @@ export interface PaymentMethod {
   default: boolean;
 }
 
-export interface OrderItem {
-  id: string;
+interface OrderItem {
   menuItemId: string;
-  name: string;
-  price: number;
   quantity: number;
+  menuItem: MenuItem;
+  price: number;
 }
 
 export interface Order {
   id: string;
   userId: string;
   restaurantId: string;
-  restaurantName: string;
-  region: Region;
   items: OrderItem[];
   status: 'pending' | 'completed' | 'cancelled';
-  total: number;
+  totalAmount: number;
   paymentMethodId: string;
   createdAt: string;
+  region: Region;
 }
