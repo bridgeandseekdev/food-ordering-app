@@ -2,6 +2,7 @@ import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { users } from '~/data/mockData';
 import { Region, User } from '~/types';
 
+//order actions
 type UserActionType = 'view' | 'create' | 'place' | 'cancel' | 'update';
 
 interface UserContextType {

@@ -3,28 +3,7 @@ import { ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
 import { useCart } from '~/context/CartContext';
-
-export const CartDrawer = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
-  if (!isOpen) {
-    return null;
-  }
-  return (
-    <div className="fixed right-0 top-16 inset-y-0 z-50 bg-secondary text-on-secondary">
-      <div className="rounded-lg shadow-lg p-4 h-full w-72 border border-red-800 flex flex-col">
-        {/* w-full for mobile, md:w-80 for desktop */}
-        <h2 className="text-xl font-bold">Cart Sidebar</h2>
-        <button onClick={onClose}>Close drawer</button>
-        {/* Cart items will be displayed here */}
-      </div>
-    </div>
-  );
-};
+import { CartDrawer } from '~/components/CartDrawer';
 
 export default function HomeLayout() {
   const [isCartOpen, setIsCartOpen] = useState(false);

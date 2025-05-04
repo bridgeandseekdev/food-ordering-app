@@ -6,11 +6,12 @@ import { useUser } from '~/context/UserContext';
 import { useCart } from '~/context/CartContext';
 import { Restaurant, MenuItem as MenuItemType } from '~/types';
 import RestaurantCard from '~/components/RestaurantCard';
+import CartControls from '~/components/CartControls';
 
 export default function RestaurantDetail() {
   const { id } = useParams();
   const { currentUser, canAccessRegion } = useUser();
-  const { addToCart, isInCart, getItemQuantity, updateQuantity } = useCart();
+  const { addToCart, isInCart } = useCart();
 
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItemType[]>([]);
@@ -98,31 +99,7 @@ export default function RestaurantDetail() {
                     Add to Cart
                   </button>
                 ) : (
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          menuItem.id,
-                          getItemQuantity(menuItem.id) - 1,
-                        )
-                      }
-                      className="w-10 h-10 flex items-center justify-center bg-secondary text-on-secondary rounded-md font-bold text-2xl"
-                    >
-                      -
-                    </button>
-                    <div className="mx-4">{getItemQuantity(menuItem.id)}</div>
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          menuItem.id,
-                          getItemQuantity(menuItem.id) + 1,
-                        )
-                      }
-                      className="w-10 h-10 flex items-center justify-center bg-secondary text-on-secondary rounded-md font-bold text-2xl"
-                    >
-                      +
-                    </button>
-                  </div>
+                  <CartControls menuItem={menuItem} />
                 )}
               </div>
             </div>
