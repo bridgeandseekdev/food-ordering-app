@@ -24,7 +24,7 @@ export default function HomeLayout() {
 
   const handleUserChange = (userId: string) => {
     setUser(userId);
-    navigate('/home/restaurants');
+    // navigate('/home/restaurants');
   };
 
   return (

@@ -7,7 +7,7 @@ import { restaurants, orders, paymentMethods } from '~/data/mockData';
 import { PaymentMethod, Order } from '~/types';
 
 export default function CheckoutLayout() {
-  const { currentUser, hasPermission } = useUser();
+  const { currentUser, hasPermission, canAccessRegion } = useUser();
   const { items, getTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
@@ -18,13 +18,48 @@ export default function CheckoutLayout() {
     useState<string>('');
   const [orderProcessing, setOrderProcessing] = useState(false);
 
+  // Get the restaurant region for the first item in cart
+  const getCartRestaurantRegion = () => {
+    if (items.length === 0) return null;
+    const firstItem = items[0];
+    const restaurant = restaurants.find(
+      (r) => r.id === firstItem.menuItem.restaurantId,
+    );
+    return restaurant?.region || null;
+  };
+
+  // Check if user can place order based on region access and permissions
+  const canPlaceOrder = () => {
+    if (!currentUser) return false;
+
+    // Admin can always place order
+    if (currentUser.role === 'Admin') return true;
+
+    const region = getCartRestaurantRegion();
+    if (!region) return false;
+
+    return hasPermission('place') && canAccessRegion(region);
+  };
+
+  // Get message explaining why order cannot be placed
+  const getDisabledMessage = () => {
+    if (!currentUser) return 'Please log in to place order';
+    if (!hasPermission('place'))
+      return 'You do not have permission to place orders';
+    if (!canAccessRegion(getCartRestaurantRegion()))
+      return "You do not have access to this restaurant's region";
+    if (!selectedPaymentMethod) return 'Please select a payment method';
+    if (orderProcessing) return 'Order is being processed';
+    return '';
+  };
+
   useEffect(() => {
     if (!currentUser) return;
 
-    if (!hasPermission('place')) {
-      navigate('/home/restaurants');
-      return;
-    }
+    // if (!hasPermission('place')) {
+    //   navigate('/home/restaurants');
+    //   return;
+    // }
 
     const methods = paymentMethods.filter(
       (method) => method.userId === currentUser.id,
@@ -41,11 +76,11 @@ export default function CheckoutLayout() {
     }
   }, [currentUser, hasPermission, navigate]);
 
-  useEffect(() => {
-    if (items.length === 0 && !orderProcessing) {
-      navigate('/home/restaurants');
-    }
-  }, [items, orderProcessing, navigate]);
+  // useEffect(() => {
+  //   if (items.length === 0) {
+  //     navigate('/home/restaurants');
+  //   }
+  // }, [items, orderProcessing, navigate]);
 
   const handlePlaceOrder = () => {
     if (!currentUser || !selectedPaymentMethod || items.length === 0) return;
@@ -150,17 +185,29 @@ export default function CheckoutLayout() {
         </div>
 
         <div className="flex justify-end">
-          <button
-            onClick={handlePlaceOrder}
-            disabled={!selectedPaymentMethod || orderProcessing}
-            className={`px-6 py-3 rounded-lg font-medium ${
-              !selectedPaymentMethod || orderProcessing
-                ? 'bg-muted text-foreground/40 cursor-not-allowed'
-                : 'bg-primary text-on-primary'
-            }`}
-          >
-            {orderProcessing ? 'Processing...' : 'Place Order'}
-          </button>
+          <div className="relative inline-block">
+            <button
+              onClick={handlePlaceOrder}
+              disabled={
+                !canPlaceOrder() || !selectedPaymentMethod || orderProcessing
+              }
+              className={`px-6 py-3 rounded-lg font-medium ${
+                !canPlaceOrder() || !selectedPaymentMethod || orderProcessing
+                  ? 'bg-muted text-foreground/40 cursor-not-allowed'
+                  : 'bg-primary text-on-primary'
+              }`}
+              title={getDisabledMessage()}
+            >
+              {orderProcessing ? 'Processing...' : 'Place Order'}
+            </button>
+            {(!canPlaceOrder() ||
+              !selectedPaymentMethod ||
+              orderProcessing) && (
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-foreground text-background text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                {getDisabledMessage()}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
