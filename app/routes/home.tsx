@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
 import { useCart } from '~/context/CartContext';
 import { CartDrawer } from '~/components/CartDrawer';
+import { users } from '~/data/mockData';
 
 export default function HomeLayout() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { currentUser, hasPermission } = useUser();
+  const { currentUser, hasPermission, setUser } = useUser();
   const { getTotalItems } = useCart();
   const navigate = useNavigate();
 
@@ -20,6 +21,11 @@ export default function HomeLayout() {
   if (!currentUser) {
     return null;
   }
+
+  const handleUserChange = (userId: string) => {
+    setUser(userId);
+    navigate('/home/restaurants');
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -63,7 +69,23 @@ export default function HomeLayout() {
               </button>
             </nav>
 
-            <div className="flex items-center space-x-2">
+            <select
+              value={currentUser.id}
+              onChange={(e) => handleUserChange(e.target.value)}
+              className="px-2 py-1 rounded-lg bg-accent text-on-accent border-none text-xs md:text-sm cursor-pointer"
+            >
+              {users.map((user) => (
+                <option
+                  key={user.id}
+                  value={user.id}
+                  className="bg-background text-foreground"
+                >
+                  {user.name} ({user.role}){user.region && ` - ${user.region}`}
+                </option>
+              ))}
+            </select>
+
+            {/* <div className="flex items-center space-x-2">
               <span className="font-medium text-xs md:text-base">
                 {currentUser.name}
               </span>
@@ -71,7 +93,7 @@ export default function HomeLayout() {
                 {currentUser.role}
                 {currentUser.region && ` - ${currentUser.region}`}
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
