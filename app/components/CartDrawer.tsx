@@ -55,7 +55,7 @@ export const CartDrawer = ({
 
         {items.length === 0 ? (
           <div className="py-20 text-center">
-            <p className="text-foreground/50">Your cart is empty</p>
+            <p className="text-on-secondary/50">Your cart is empty</p>
           </div>
         ) : (
           <>
@@ -63,7 +63,7 @@ export const CartDrawer = ({
               {items.map((item) => (
                 <div
                   key={item.menuItemId}
-                  className="flex flex-col items-center gap-4 p-3 bg-card rounded-lg border border-border"
+                  className="flex flex-col items-center gap-4 p-3 bg-card text-card-foreground rounded-lg border border-border"
                 >
                   <div className="flex items-center justify-between w-full">
                     <div className="h-16 w-16 bg-muted rounded-full flex items-center justify-center shrink-0">

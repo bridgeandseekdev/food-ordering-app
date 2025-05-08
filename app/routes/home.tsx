@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from '@remix-run/react';
+import { Link, Outlet, useNavigate } from '@remix-run/react';
 import { ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
@@ -27,7 +27,9 @@ export default function HomeLayout() {
       <header className="bg-muted border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <h1 className="md:text-xl font-bold text-primary">FOA</h1>
+            <Link to="/home/restaurants">
+              <h1 className="md:text-xl font-bold text-primary">FOA</h1>
+            </Link>
           </div>
           <div className="flex items-center gap-6">
             <button
