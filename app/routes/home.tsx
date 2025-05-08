@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from '@remix-run/react';
-import { ShoppingCart } from 'lucide-react';
+import { ClipboardList, ShoppingCart, CreditCard } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
 import { useCart } from '~/context/CartContext';
@@ -7,7 +7,7 @@ import { CartDrawer } from '~/components/CartDrawer';
 
 export default function HomeLayout() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { currentUser } = useUser();
+  const { currentUser, hasPermission } = useUser();
   const { getTotalItems } = useCart();
   const navigate = useNavigate();
 
@@ -32,17 +32,37 @@ export default function HomeLayout() {
             </Link>
           </div>
           <div className="flex items-center gap-6">
-            <button
-              className="relative"
-              onClick={() => setIsCartOpen(!isCartOpen)}
-            >
-              <ShoppingCart className="h-6 w-6 text-primary" />
-              {getTotalItems() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-destructive text-on-destructive rounded-full px-1 text-xs">
-                  {getTotalItems()}
-                </span>
+            <nav className="flex items-center gap-4">
+              <Link
+                to="/home/orders"
+                className="relative hover:text-primary transition-colors"
+                title="Orders"
+              >
+                <ClipboardList className="h-6 w-6" />
+              </Link>
+
+              {hasPermission('update') && (
+                <Link
+                  to="/home/payment-methods"
+                  className="relative hover:text-primary transition-colors"
+                  title="Payment Methods"
+                >
+                  <CreditCard className="h-6 w-6" />
+                </Link>
               )}
-            </button>
+              <button
+                className="relative"
+                onClick={() => setIsCartOpen(!isCartOpen)}
+              >
+                <ShoppingCart className="h-6 w-6 text-primary" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-destructive text-on-destructive rounded-full px-1 text-xs">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </button>
+            </nav>
+
             <div className="flex items-center space-x-2">
               <span className="font-medium text-xs md:text-base">
                 {currentUser.name}
