@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
 import { useCart } from '~/context/CartContext';
 import { CartDrawer } from '~/components/CartDrawer';
-import { users } from '~/data/mockData';
+import { users, orders } from '~/data/mockData';
 
 export default function HomeLayout() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -44,6 +44,11 @@ export default function HomeLayout() {
                 className="relative hover:text-primary transition-colors"
                 title="Orders"
               >
+                {orders.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-destructive text-on-destructive rounded-full px-1 text-xs">
+                    {orders.length}
+                  </span>
+                )}
                 <ClipboardList className="h-6 w-6" />
               </Link>
 
